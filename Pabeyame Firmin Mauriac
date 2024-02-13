@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Ce script Git simplifié effectue quelques opérations courantes.
+
+# Initialiser un nouveau dépôt Git
+git init
+
+# Ajouter tous les fichiers au suivi de version
+git add .
+
+# Valider les modifications avec un message de commit
+git commit -m "Initial commit"
+
+# Ajouter un dépôt distant (remplacez URL_du_depot par l'URL de votre dépôt distant)
+git remote add origin URL_du_depot
+
+# Pousser les modifications vers le dépôt distant
+git push -u origin master
+
+# Afficher le statut du dépôt
+git status
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat en temps réel</title>
+</head>
+<body>
+    <h1>Chat en temps réel</h1>
+    <ul id="messages"></ul>
+    <input type="text" id="messageInput" />
+    <button id="sendButton">Envoyer</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        const messagesElement = document.getElementById('messages');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+
+        sendButton.addEventListener('click', () => {
+            const message = messageInput.value;
+            socket.emit('message', message);
+            messageInput.value = '';
+        });
+
+        socket.on('message', (data) => {
+            const messageItem = document.createElement('li');
+            messageItem.textContent = data;
+            messagesElement.appendChild(messageItem);
+        });
+    </script>
+</body>
+</html>
+
